@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import config
 from chat_playground.routes import router as chat_playground_router
+# This is a comment to trigger the CI/CD workflow
 
 app = FastAPI()
 
