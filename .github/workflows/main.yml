@@ -104,13 +104,32 @@ jobs:
       run: |
         sed -i "s@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:.*@ \
-        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}@g" back.yaml
+        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}@g" ./manifest/back.yaml
 
     - name: Commit and Push Backend Changes
       if: steps.build-backend-image.outputs.result == 'success'
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME }}
-        git add back.yaml
+        git add ./manifest/back.yaml
         git commit -m "Update image tag for backend"
         git push origin main
+
+    - name: Copy manifest.yaml from GitHub to EC2 instance
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_IP_ADDRESS }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        script: |
+          wget -O front.yml https://github.com/chitchatbot/bedrock.git/manifest/front.yaml
+
+    - name: Deploy on EC2 instance
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_IP_ADDRESS }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        script: |
+          kubectl delete -f front.yaml --ignore-not-found
+          kubectl apply -f front.yaml
