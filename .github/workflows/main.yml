@@ -61,7 +61,7 @@ jobs:
         docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_FRONT }}:${{ env.IMAGE_TAG }} ./frontend
 
     - name: Docker Image Push for Frontend
-      if: steps.build-frontend-image.outputs.result == 'success'
+      #if: steps.build-frontend-image.outputs.result == 'success'
       run: |
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_FRONT }}:${{ env.IMAGE_TAG }}
 
@@ -74,7 +74,7 @@ jobs:
     - name: Docker Image Push for Backend
       if: steps.build-backend-image.outputs.result == 'success'
       run: |
-        docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}
+        docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}
         
     - name: Checkout Deployment Repository
       uses: actions/checkout@v4
@@ -84,14 +84,14 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
 
     - name: Update k8s manifest for Frontend
-      if: steps.build-frontend-image.outputs.result == 'success'
+      #if: steps.build-frontend-image.outputs.result == 'success'
       run: |
         sed -i "s@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_FRONT }}:.*@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_FRONT }}:${{ env.IMAGE_TAG }}@g" front.yaml
 
     - name: Commit and Push Frontend Changes
-      if: steps.build-frontend-image.outputs.result == 'success'
+      #if: steps.build-frontend-image.outputs.result == 'success'
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME }}
