@@ -95,7 +95,7 @@ jobs:
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME }}
-        git add front.yaml
+        git add ./manifest/front.yaml
         git commit -m "Update image tag for frontend"
         git push origin main
 
