@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ccb-dep-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ccb-back
+  template:
+    metadata:
+      name: ccb-pod-back
+      labels:
+        app: ccb-back
+    spec:
+      containers:
+      - name: ccb-con-back
+        image: 571698711201.dkr.ecr.us-east-1.amazonaws.com/ccb-backend:latest
+        ports:
+        - containerPort: 55500
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ccb-svc-back
+spec:
+  type: LoadBalancer
+  selector:
+    app: ccb-back
+  ports:
+  - port: 55500
+    targetPort: 55500
