@@ -172,7 +172,7 @@ export default function ChatContainer() {
                                 <img alt="" src="/yong_icon.png" width={"38px"} height={"35px"}></img>
                             </div>
                             <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl rounded-br-xl">
-                                안녕하세요 ChitChatBot입니다. 처음 서비스를 이용하신다면 다음 질문들을 눌러 사용법을 알아보세요.
+                                테스트 테스트
                             </div>
                         </div>
                         <div className="flex flex-row items-center mb-4">
