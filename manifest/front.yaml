@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ccb-dep-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ccb-front
+  template:
+    metadata:
+      name: ccb-pod-front
+      labels:
+        app: ccb-front
+    spec:
+      containers:
+      - name: ccb-con-front
+        image: 571698711201.dkr.ecr.us-east-1.amazonaws.com/ccb-frontend:80
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ccb-svc-front
+spec:
+  type: LoadBalancer
+  selector:
+    app: ccb-front
+  ports:
+  - port: 80
+    targetPort: 80
