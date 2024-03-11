@@ -122,7 +122,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         script: |
-          wget -O front.yml wget -O front.yaml https://raw.githubusercontent.com/chitchatbot/bedrock/main/manifest/front.yaml
+          wget -O front.yaml https://raw.githubusercontent.com/chitchatbot/bedrock/main/manifest/front.yaml
     - name: Deploy on EC2 instance
       uses: appleboy/ssh-action@v0.1.6
       with:
