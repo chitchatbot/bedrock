@@ -88,14 +88,14 @@ jobs:
       run: |
         sed -i "s@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_FRONT }}:.*@ \
-        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_FRONT }}:${{ env.IMAGE_TAG }}@g" front.yml
+        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_FRONT }}:${{ env.IMAGE_TAG }}@g" front.yaml
 
     - name: Commit and Push Frontend Changes
       if: steps.build-frontend-image.outputs.result == 'success'
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME }}
-        git add front.yml
+        git add front.yaml
         git commit -m "Update image tag for frontend"
         git push origin main
 
@@ -104,13 +104,13 @@ jobs:
       run: |
         sed -i "s@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:.*@ \
-        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}@g" back.yml
+        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}@g" back.yaml
 
     - name: Commit and Push Backend Changes
       if: steps.build-backend-image.outputs.result == 'success'
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME }}
-        git add back.yml
+        git add back.yaml
         git commit -m "Update image tag for backend"
         git push origin main
