@@ -25,7 +25,7 @@
 
 .text-orange{
   --tw-text-opacity: 1;
-  color: rgb(255 165 0 / var(--tw-text-opacity));
+  color: rgb(0 0 255 / var(--tw-text-opacity));
 }
 
 /* Form 스타일링 */
