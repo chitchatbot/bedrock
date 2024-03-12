@@ -23,6 +23,11 @@
   background-color: #07E8D8;
 }
 
+.text-orange{
+  --tw-text-opacity: 1;
+  color: rgb(255 165 0 / var(--tw-text-opacity));
+}
+
 /* Form 스타일링 */
 .fileForm {
   display: flex;
