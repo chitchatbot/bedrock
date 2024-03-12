@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: ccb-dep-front
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ccb-front
