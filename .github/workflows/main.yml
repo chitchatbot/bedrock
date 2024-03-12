@@ -114,3 +114,12 @@ jobs:
         git add ./manifest/back.yaml
         git commit -m "Update image tag for backend"
         git push origin main
+        
+    - name: Copy manifest.yaml from GitHub to EC2 instance
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_IP_ADDRESS }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        script: |
+          wget -O front.yaml https://raw.githubusercontent.com/chitchatbot/bedrock/main/manifest/front.yaml
