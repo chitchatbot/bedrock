@@ -44,7 +44,7 @@ export default function Navigation() {
             {isLoginPopupOpen && (
                 <div className="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-gray-900 bg-opacity-50">
                     <div className="bg-white p-6 rounded-lg">
-                        <h2 className="text-lg font-semibold mb-4">로그인</h2>
+                        <h2 className="text-lg font-semibold mb-4">ddd</h2>
                         <form onSubmit={handleLogin} >
                             <div className="mb-4">
                                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">아이디</label>
