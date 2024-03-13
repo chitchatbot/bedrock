@@ -22,12 +22,6 @@ export default function ChatContainer() {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [conversation]);
 
-    // (start) 파일 입력 폼의 표시 여부 관리 상태
-    const [showFileInput, setShowFileInput] = useState(false);
-
-    const toggleFileInput = () => {
-        setShowFileInput(!showFileInput);
-    };
 
     // (start) 파일 입력에 대한 참조 생성
     const fileInputRef = useRef(null);
@@ -101,29 +95,6 @@ export default function ChatContainer() {
         return conversationBuilder.trim();
     }
 
-    // 기본 질문 클릭했을 때 답변 출력하기(insertData1,insertData2)
-    const insertData1 = () => {
-        setConversation(prevConversation => [
-            ...prevConversation,
-            {
-                sender: "Assistant",
-                message: <div>ChitChatBot은 카카오톡 채팅 대화내역에 AI 서비스를 탑재하여<br />
-                    질의응답을 통해 필요한 정보를 손쉽게 찾을 수 있는 서비스입니다.</div>
-            }
-        ]);
-    };
-
-    const insertData2 = () => {
-        setConversation(prevConversation => [
-            ...prevConversation,
-            {
-                sender: "Assistant",
-                message: <div> 질의응답을 하고 싶은 카카오톡 채팅방에 접속 후 "대화내용 내보내기" 기능을 통해 파일을 다운받고<br />
-                    <span className="font-semibold">"채팅방 텍스트 파일 넣기"</span> 버튼을 눌러 파일을 첨부해주세요.</div>
-            }
-        ]);
-    };
-
     const sendMessage = async () => {
         const newMessage = { sender: "Human", message: inputValue };
         setConversation(prevConversation => [...prevConversation, newMessage]);
@@ -158,6 +129,69 @@ export default function ChatContainer() {
         }
     };
 
+    // 기본 질문 클릭했을 때 답변 출력하기(insertData1,insertData2)
+    const insertData1 = () => {
+        setConversation(prevConversation => [
+            ...prevConversation,
+            {
+                sender: "Assistant",
+                message: <div>ChitChatBot은 카카오톡 채팅 대화내역에 AI 서비스를 탑재하여<br />
+                    질의응답을 통해 필요한 정보를 손쉽게 찾을 수 있는 서비스입니다.</div>
+            }
+        ]);
+    };
+
+    const insertData2 = () => {
+        setConversation(prevConversation => [
+            ...prevConversation,
+            {
+                sender: "Assistant",
+                message: <div> 질의응답을 하고 싶은 카카오톡 채팅방에 접속 후 "대화 내보내기" 기능을 통해 파일을 다운받고<br />
+                    <span className="font-semibold">"채팅방 텍스트 파일 넣기"</span> 버튼을 눌러 파일을 첨부해주세요.</div>
+            }
+        ]);
+    };
+
+    const insertData3 = () => {
+        setConversation(prevConversation => [
+            ...prevConversation,
+            {
+                sender: "Assistant",
+                message: <div className="relative ml-3 text-sm bg-white py-2 px-2 shadow rounded-xl rounded-br-xl">
+                    <form onSubmit={handleSubmit} className="fileForm" encType="multipart/form-data">
+                        <input type="file" className="textfileInput" id="textfile" name="textfile" accept=".txt" ref={fileInputRef} />
+                        <button className="submitBtn" type="submit">전송</button>
+                    </form>
+                </div>
+            }
+        ]);
+    };
+
+
+    // Q&A 버튼 눌렀을 때 뜨는 메뉴
+    const toggleMenu = () => {
+        setConversation(prevConversation => [
+            ...prevConversation,
+            {
+                sender: "Assistant",
+                message: <div>
+                    <button className="inform-message rounded-xl bg-gray-200 px-4" onClick={insertData1}>
+                        ChitChatBot은 어떤 서비스야?
+                    </button>
+                    <button className="inform-message rounded-xl bg-gray-200 px-4" onClick={insertData2}>
+                        대화내용 추가는 어떻게 하는거야?
+                    </button>
+                    <button className="inform-message rounded-xl bg-mint px-4 font-semibold" onClick={insertData3}>
+                        채팅방 텍스트 파일 넣기
+                    </button>
+                </div>
+
+            }
+        ]);
+    };
+
+
+
     return <div className="flex flex-col flex-auto h-full p-6">
         <h3 className="text-3xl font-medium text-gray-700">ChitChatBot</h3>
         <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 p-4 mt-8">
@@ -172,7 +206,7 @@ export default function ChatContainer() {
                                 <img alt="" src="/yong_icon.png" width={"38px"} height={"35px"}></img>
                             </div>
                             <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl rounded-br-xl">
-                                안녕하세요. ChitChatBot입니다. 처음 서비스를 이용하신다면 다음 질문들을 눌러 사용법을 알아보세요.
+                                안녕하세요 ChitChatBot입니다. 처음 서비스를 이용하신다면 다음 질문들을 눌러 사용법을 알아보세요.
                             </div>
                         </div>
                         <div className="flex flex-row items-center mb-4">
@@ -187,26 +221,13 @@ export default function ChatContainer() {
                                 <button className="inform-message rounded-xl bg-gray-200 px-4" onClick={insertData2}>
                                     대화내용 추가는 어떻게 하는거야?
                                 </button>
-                                <button className="inform-message rounded-xl bg-mint px-4 font-semibold" onClick={toggleFileInput}>
+                                <button className="inform-message rounded-xl bg-mint px-4 font-semibold" onClick={insertData3}>
                                     채팅방 텍스트 파일 넣기
                                 </button>
                             </div>
                         </div>
-                        <div className="flex flex-row items-center mb-4">
-                            <div
-                                className="flex items-center justify-center h-10 w-10 rounded-full flex-shrink-0"
-                            >
-                            </div>
-                            {showFileInput && (
-                                <div className="relative ml-3 text-sm bg-white py-2 px-2 shadow rounded-xl rounded-br-xl">
-                                    <form onSubmit={handleSubmit} className="fileForm" encType="multipart/form-data">
-                                        <input type="file" className="textfileInput" id="textfile" name="textfile" accept=".txt" ref={fileInputRef} />
-                                        <button className="submitBtn" type="submit">전송</button>
-                                    </form>
-                                </div>
-                            )}
-                        </div>
                     </div>
+                    
                     <div className="grid grid-cols-12 gap-y-2">
                         {conversation.map((item, i) => {
                             if (item.sender === "Assistant") {
@@ -225,11 +246,11 @@ export default function ChatContainer() {
                     </div>
                 </div>
             </div>
-            
+
             {/* 채팅보내는 창 전체 */}
             <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
                 <div className="flex-grow">
-                    <div className="relative w-full">
+                    <div className="relative w-99">
                         <input
                             type="text"
                             value={inputValue}
@@ -244,7 +265,16 @@ export default function ChatContainer() {
                         />
                     </div>
                 </div>
-                <div className="ml-4">
+
+                {/* Q&A 버튼 */}
+                <div classname="m1-4">
+                    <button type="button" onClick={toggleMenu} className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                    >
+                        <span>Q&A</span>
+                    </button>
+                </div>
+                {/* 메세지 전송 버튼 */}
+                <div className="ml-2">
                     <button
                         type="button"
                         onClick={sendMessage}
@@ -269,6 +299,7 @@ export default function ChatContainer() {
                         </span>
                     </button>
                 </div>
+
             </div>
         </div>
     </div>;
