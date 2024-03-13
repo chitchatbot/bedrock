@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: ccb-con-front
-        image: 571698711201.dkr.ecr.us-east-1.amazonaws.com/ccb-frontend:312
+        image: 571698711201.dkr.ecr.us-east-1.amazonaws.com/ccb-frontend:313
         ports:
         - containerPort: 80
 ---
