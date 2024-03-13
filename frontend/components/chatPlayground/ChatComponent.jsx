@@ -14,7 +14,7 @@ export default function ChatContainer() {
     const [isLoading, setIsLoading] = useState(false);
 
     const endpoint = "/foundation-models/model/chat/anthropic.claude-v2/invoke";
-    const api = `${GlobalConfig.apiHost}:${GlobalConfig.apiPort}${endpoint}`;
+    const api = `${GlobalConfig.apiHost}${endpoint}`;
 
     const scrollRef = useRef();
 
