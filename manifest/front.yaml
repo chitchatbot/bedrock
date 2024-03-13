@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ccb-dep-front
+  namespace: alb
 spec:
   replicas: 1
   selector:
@@ -23,8 +24,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ccb-svc-front
+  namespace: alb
 spec:
-  type: LoadBalancer
   selector:
     app: ccb-front
   ports:
