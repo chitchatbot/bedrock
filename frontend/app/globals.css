@@ -28,6 +28,10 @@
   color: rgb(255 165 0 / var(--tw-text-opacity));
 }
 
+.w-99 {
+  width: 99%;
+}
+
 /* Form 스타일링 */
 .fileForm {
   display: flex;
