@@ -67,7 +67,7 @@ export default function Navigation() {
                 </button>
             </div>
             <div className="flex flex-row items-center mt-7">
-                <div className="mr-auto pl-4 text-white">채팅방 목록</div>
+                <div className="mr-auto pl-4 text-white">dddddddddd</div>
                 <button className="ml-auto pr-4" onClick={openAddChatroom}>
                     <img alt="" src="/plus_icon.png" width={"30px"} height={"25px"} />
                 </button>
