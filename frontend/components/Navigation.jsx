@@ -61,7 +61,7 @@ export default function Navigation() {
         <div className="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto bg-gray-900 lg:translate-x-0 lg:static lg:inset-0">
             <div className="flex flex-row items-center space-between mt-7">
                 <img className="mx-2" alt="" src="/yong_icon.png" width={"60px"} height={"45px"} />
-                <span className="text-orange" id="idToInsert" style={{ width: "75px" }}>{isLoggedIn ? username : ""}</span>
+                <span className="text-orange" id="idToInsert" style={{ width: "75px" }}>{isLoggedIn ? username : "비회원"}</span>
                 <button className="mx-2 font-semibold text-white border border-white p-2" onClick={isLoggedIn ? () => setIsLoggedIn(false) : openLoginPopup}>
                     {isLoggedIn ? "로그아웃" : "로그인"}
                 </button>
@@ -69,7 +69,7 @@ export default function Navigation() {
             <div className="flex flex-row items-center mt-7">
                 <div className="mr-auto pl-4 text-white">채팅방 목록</div>
                 <button className="ml-auto pr-4" onClick={openAddChatroom}>
-                    <img alt="" src="/plus_icon.png" width={"30px"} height={"25px"} />
+                    <img alt="" src="/plus_icon_mint.png" width={"60px"} height={"60px"} />
                 </button>
             </div>
 
