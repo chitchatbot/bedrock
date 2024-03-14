@@ -5,3 +5,7 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     completion: str
+
+class User(BaseModel):
+    username: str
+    password: str

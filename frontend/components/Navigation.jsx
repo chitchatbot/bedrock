@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import GlobalConfig from "@/app/app.config";
 
 export default function Navigation() {
     const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -10,6 +11,9 @@ export default function Navigation() {
     const [isChatroomPopupOpen, setIsChatroomPopupOpen] = useState(false); // 네모창 상태 추가
     const [chatroomName, setChatroomName] = useState(""); // 채팅방 이름 상태 추가
     const [chatrooms, setChatrooms] = useState([]); // 채팅방 목록 상태 추가
+
+    const dbendpoint = "/register"
+    const dbapi = `${GlobalConfig.apiHost}${dbendpoint}`;
 
     const openLoginPopup = () => {
         setIsLoginPopupOpen(true);
@@ -23,7 +27,7 @@ export default function Navigation() {
         setUsername(e.target.value);
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         var username = document.getElementById("username").value;
@@ -36,6 +40,27 @@ export default function Navigation() {
 
         setIsLoggedIn(true);
         setIsLoginPopupOpen(false);
+
+        try {
+            const response = await fetch(dbapi, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                alert('회원가입 성공');
+                setIsLoggedIn(true);
+                setIsLoginPopupOpen(false);
+            } else {
+                alert('회원가입 실패');
+            }
+        } catch (error) {
+            console.error('회원가입 에러', error);
+        }
+
     };
 
     const openAddChatroom = () => {
