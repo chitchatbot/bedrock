@@ -43,16 +43,6 @@ jobs:
       with:
         distribution: adopt
         java-version: 8
-     
-  #  - name: Setup Gradle
-  #    uses: gradle/gradle-build-action@v3
-
-  #  - name: chmod
-  #    run: chmod +x ./gradlew
-  #    gradle로 빌드시 사용
-
-  #  - name: Execute maven build
-  #    run: mvn clean package
   
     - name: Docker Image Build for Frontend
       id: build-frontend-image
@@ -67,12 +57,12 @@ jobs:
 
     - name: Docker Image Build for Backend
       id: build-backend-image
-      if: startsWith(github.event_path, 'backend/')
+      #if: startsWith(github.event_path, 'backend/')
       run: |
         docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }} ./backend
 
     - name: Docker Image Push for Backend
-      if: steps.build-backend-image.outputs.result == 'success'
+      #if: steps.build-backend-image.outputs.result == 'success'
       run: |
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}
         
@@ -100,14 +90,14 @@ jobs:
         git push origin main
 
     - name: Update k8s manifest for Backend
-      if: steps.build-backend-image.outputs.result == 'success'
+      #if: steps.build-backend-image.outputs.result == 'success'
       run: |
         sed -i "s@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:.*@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_BACK }}:${{ env.IMAGE_TAG }}@g" ./manifest/back.yaml
 
     - name: Commit and Push Backend Changes
-      if: steps.build-backend-image.outputs.result == 'success'
+      #if: steps.build-backend-image.outputs.result == 'success'
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME }}
@@ -123,3 +113,4 @@ jobs:
         key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         script: |
           wget -O front.yaml https://raw.githubusercontent.com/chitchatbot/bedrock/main/manifest/front.yaml
+          wget -O back.yaml https://raw.githubusercontent.com/chitchatbot/bedrock/main/manifest/back.yaml
