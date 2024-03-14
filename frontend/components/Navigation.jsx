@@ -55,7 +55,7 @@ export default function Navigation() {
                 setIsLoggedIn(true);
                 setIsLoginPopupOpen(false);
             } else {
-                alert('회원가입 실패');
+                alert('로그인 성공');
             }
         } catch (error) {
             console.error('로그인 성공', error);
