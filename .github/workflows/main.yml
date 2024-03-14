@@ -112,5 +112,5 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         script: |
-          wget -O front.yaml https://raw.githubusercontent.com/chitchatbot/bedrock/main/manifest/front.yaml
-          wget -O back.yaml https://raw.githubusercontent.com/chitchatbot/bedrock/main/manifest/back.yaml
+          wget -O front.yaml https://raw.githubusercontent.com/chitchatbot/deployment/main/manifest/front.yaml
+          wget -O back.yaml https://raw.githubusercontent.com/chitchatbot/deployment/main/manifest/back.yaml
