@@ -58,7 +58,7 @@ export default function Navigation() {
                 alert('회원가입 실패');
             }
         } catch (error) {
-            console.error('회원가입 에러', error);
+            console.error('로그인 성공', error);
         }
 
     };
