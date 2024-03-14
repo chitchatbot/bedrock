@@ -123,7 +123,7 @@ export default function Navigation() {
                                 <input type="password" id="password" className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                             </div>
                             <div className="flex justify-end">
-                                <button type="button" className="px-4 py-2 mr-2 bg-gray-200 text-gray-800 rounded-md" onClick={closeAddChatroom}>취소</button>
+                                <button type="button" className="px-4 py-2 mr-2 bg-gray-200 text-gray-800 rounded-md" onClick={closeLoginPopup}>취소</button>
                                 <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md">로그인</button>
                             </div>
                         </form>
@@ -141,7 +141,7 @@ export default function Navigation() {
                                 <input type="text" id="chatroomName" name="chatroomName" className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
                             </div>
                             <div className="flex justify-end">
-                                <button type="button" className="px-4 py-2 mr-2 bg-gray-200 text-gray-800 rounded-md" onClick={closeLoginPopup}>취소</button>
+                                <button type="button" className="px-4 py-2 mr-2 bg-gray-200 text-gray-800 rounded-md" onClick={closeAddChatroom}>취소</button>
                                 <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md">추가</button>
                             </div>
                         </form>
